@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, mergeProps } from 'vue';
+  import { ref } from 'vue';
   import type { Accounting } from '@/models/Accounting';
   import Dialog from 'primevue/dialog';
   import Button from 'primevue/button';
@@ -26,14 +26,14 @@
   import InputText from 'primevue/inputtext';
   import { useToast } from 'primevue/usetoast';
   import Toast from 'primevue/toast';
-import axios from 'axios';
+  import axios from 'axios';
 
   const toast = useToast();
   const name = ref<string>('');
   const birthDate = ref<Date | null>(null);
   const dialogVisible = ref<boolean>(true);
 
-  const emit = defineEmits(['accountantSaved']);
+  const emit = defineEmits(['accountantListModified']);
 
     const saveAccountant = () => {
         if (name.value && birthDate.value) {
@@ -55,7 +55,7 @@ import axios from 'axios';
                     detail: 'Accountant saved successfully!',
                     life: 3000
                 });
-                emit('accountantSaved');
+                emit('accountantListModified');
             })
             .catch((error) => {
                 console.error('Error saving accountant:', error);
