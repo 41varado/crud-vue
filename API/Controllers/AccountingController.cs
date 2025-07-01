@@ -80,20 +80,10 @@ namespace API.Controllers
             }
         }
 
-        [HttpPatch("{id}")]
-        public async Task<ObjectResult> UpdateAccountingUser(string id, AccountingRequestData requestData)
+        [HttpPatch("{name}")]
+        public async Task<ObjectResult> UpdateAccountingUser(string name, AccountingRequestData requestData)
         {
-            if (!ObjectId.TryParse(id, out ObjectId objectId))
-            {
-                return BadRequest("Invalid ObjectId");
-            }
-
-            if (id == null)
-            {
-                return BadRequest("Invalid id");
-            }
-
-            Accounting accounting = await _context.Accountants.FindAsync(objectId);
+            Accounting accounting = await _context.Accountants.FirstOrDefaultAsync<Accounting>(a => a.Name == name);
 
             if (accounting == null)
             {
@@ -114,20 +104,10 @@ namespace API.Controllers
             return Ok(accounting);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ObjectResult> DeleteAccountingUser(string id)
+        [HttpDelete("{name}")]
+        public async Task<ObjectResult> DeleteAccountingUser(string name)
         {
-            if (!ObjectId.TryParse(id, out ObjectId objectId))
-            {
-                return BadRequest("Invalid ObjectId");
-            }
-
-            if (id == null)
-            {
-                return BadRequest("Invalid id");
-            }
-
-            Accounting accounting = await _context.Accountants.FindAsync(objectId);
+            Accounting accounting = await _context.Accountants.FirstOrDefaultAsync<Accounting>(a => a.Name == name) ;
 
             if (accounting == null)
             {

@@ -9,3 +9,4 @@ namespace API.Models
         public DateTime BirthDate { get; set; }
     }
 }
+    
