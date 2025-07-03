@@ -68,11 +68,16 @@ const closeModifyDialog = () => {
 }
 
 const openDeleteDialog = (accountant: Accounting) => {
-  deleteVisible.value = true;
-  selectedAccountant.value = { ...accountant };
+  console.log('Opening delete dialog for:', accountant);
+  selectedAccountant.value = null;
+  setTimeout(() => {
+    selectedAccountant.value = JSON.parse(JSON.stringify(accountant));
+    deleteVisible.value = true;
+  }, 0);
 };
 
 const closeDeleteDialog = () => {
+  console.log('Closing delete dialog');
   selectedAccountant.value = null;
   setInterval(() => {
     deleteVisible.value = false;

@@ -1,6 +1,6 @@
 <template>
   <Toast />
-  <ConfirmDialog group="delete-accountant">
+  <ConfirmDialog group="delete-accountant" :autoFocus="false">
     <template #message="slotProps">
         <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
             <i :class="slotProps.message.icon" class="!text-6xl text-primary-500"></i>
@@ -32,6 +32,7 @@
   watch(
   () => props.accountant,
   (newAccountant) => {
+    console.log('Accountant to delete:', newAccountant);
     accountantToLoad.value = newAccountant ? { ...newAccountant } : null;
     if (newAccountant) {
       confirm.require({
